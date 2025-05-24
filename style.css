@@ -1,0 +1,28 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%; /* Asegura que html y body ocupen toda la altura para que el scroll funcione correctamente */
+}
+
+body {
+    position: relative; /* Aunque el ::before ya no sea "absolute" respecto a body,
+                           es buena práctica si tienes otros elementos posicionados. */
+    min-height: 100vh; /* Asegura que el body pueda tener scroll si hay suficiente contenido */
+    box-sizing: border-box; /* Incluye padding y border en el ancho/alto total */
+    padding-bottom: 50px; /* Para que el contenido no quede pegado al final */
+}
+
+body::before {
+    content: "";
+    position: fixed; /* ¡CAMBIO CLAVE: Hace que la imagen se quede fija en la ventana! */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; /* Cubrirá toda la ventana (viewport) */
+    background-image: url('https://via.placeholder.com/1920x1080/add8e6/ffffff?text=Fondo+Fijo'); /* ¡CAMBIA ESTO por la URL de tu imagen! */
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    opacity: 0.3; /* Ajusta la transparencia */
+    z-index: -1; /* Envía este fondo detrás del contenido del body */
+}
