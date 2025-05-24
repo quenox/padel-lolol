@@ -19,7 +19,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%; /* Cubrirá toda la ventana (viewport) */
-    background-image: url('https://via.placeholder.com/1920x1080/add8e6/ffffff?text=Fondo+Fijo'); /* ¡CAMBIA ESTO por la URL de tu imagen! */
+    background-image: url('background.jpg'); /* ¡CAMBIA ESTO por la URL de tu imagen! */
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
