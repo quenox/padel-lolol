@@ -12,35 +12,10 @@
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <!-- Swiper.js CSS -->
-    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
     <style>
-      /* Estilos adicionales para Swiper si son necesarios, o para asegurar la altura */
-      .swiper-container {
-        width: 100%;
-        height: 400px; /* Ajusta la altura según necesites */
-      }
-      .swiper-slide img {
-        display: block;
-        width: 100%;
-        height: 100%;
-        object-fit: cover; /* o 'contain' si prefieres */
-        border-radius: 0.75rem; /* rounded-xl de Tailwind */
-      }
-      /* Para que los botones de navegación de Swiper sean más visibles sobre las imágenes */
-      .swiper-button-next, .swiper-button-prev {
-        color: #ffffff; /* Color blanco */
-        background-color: rgba(0,0,0,0.3); /* Fondo semi-transparente */
-        padding: 10px;
-        border-radius: 50%;
-        width: 44px !important; /* Ajusta si es necesario */
-        height: 44px !important; /* Ajusta si es necesario */
-      }
-      .swiper-button-next::after, .swiper-button-prev::after {
-        font-size: 20px !important; /* Tamaño del icono de flecha */
-      }
-      .swiper-pagination-bullet-active {
-        background-color: #ffffff !important; /* Color del bullet activo */
+      /* Opcional: Para asegurar que los botones estén por encima si hay problemas de z-index */
+      .gallery-button {
+        z-index: 10;
       }
     </style>
   </head>
@@ -63,7 +38,7 @@
             <div class="flex items-center gap-9">
               <a class="text-[#101518] text-sm font-medium leading-normal" href="#">Inicio</a>
               <a class="text-[#101518] text-sm font-medium leading-normal" href="#canchas">Canchas</a>
-              <a class="text-[#101518] text-sm font-medium leading-normal" href="#galeria">Galería</a> <!-- Nuevo enlace -->
+              <a class="text-[#101518] text-sm font-medium leading-normal" href="#galeria">Galería</a>
               <a class="text-[#101518] text-sm font-medium leading-normal" href="#ubicacion">Ubicación</a>
               <a class="text-[#101518] text-sm font-medium leading-normal" href="#contacto">Contacto</a>
             </div>
@@ -133,20 +108,35 @@
               </div>
             </div>
 
-            <!-- INICIO SECCIÓN GALERÍA -->
+            <!-- INICIO SECCIÓN GALERÍA CON TAILWIND/JS -->
             <h2 id="galeria" class="text-[#101518] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5 scroll-mt-20">Galería de Fotos</h2>
             <div class="px-4 py-3">
-              <!-- Swiper -->
-              <div class="swiper-container mySwiper">
-                <div class="swiper-wrapper" id="gallery-wrapper">
+              <div id="tailwind-gallery-container" class="relative w-full max-w-3xl mx-auto h-96 overflow-hidden rounded-xl shadow-lg">
+                <div id="tailwind-gallery-wrapper" class="flex h-full transition-transform duration-500 ease-in-out">
                   <!-- Las imágenes se cargarán aquí por JavaScript -->
-                  <div class="swiper-slide"><p class="text-center p-8">Cargando galería...</p></div>
+                  <div class="w-full h-full flex-none flex items-center justify-center">
+                    <p class="text-gray-600">Cargando galería...</p>
+                  </div>
                 </div>
-                <!-- Add Pagination -->
-                <div class="swiper-pagination"></div>
-                <!-- Add Navigation -->
-                <div class="swiper-button-next"></div>
-                <div class="swiper-button-prev"></div>
+
+                <!-- Botón Anterior -->
+                <button id="gallery-prev" aria-label="Imagen Anterior" class="gallery-button absolute top-1/2 left-3 transform -translate-y-1/2 bg-black/40 text-white p-2 rounded-full hover:bg-black/60 focus:outline-none focus:ring-2 focus:ring-white disabled:opacity-50 disabled:cursor-not-allowed">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+
+                <!-- Botón Siguiente -->
+                <button id="gallery-next" aria-label="Siguiente Imagen" class="gallery-button absolute top-1/2 right-3 transform -translate-y-1/2 bg-black/40 text-white p-2 rounded-full hover:bg-black/60 focus:outline-none focus:ring-2 focus:ring-white disabled:opacity-50 disabled:cursor-not-allowed">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+                
+                <!-- Paginación (Opcional, más simple sin ella para empezar) -->
+                <div id="gallery-dots" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                    <!-- Dots se agregarán aquí con JS -->
+                </div>
               </div>
             </div>
             <!-- FIN SECCIÓN GALERÍA -->
@@ -162,6 +152,7 @@
             </p>
             <h2 class="text-[#101518] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Precios</h2>
             <div class="grid grid-cols-[repeat(auto-fit,minmax(228px,1fr))] gap-2.5 px-4 py-3 @3xl:grid-cols-4">
+              <!-- ... (resto del contenido de precios sin cambios) ... -->
               <div class="flex flex-1 flex-col gap-4 rounded-xl border border-solid border-[#d4dce2] bg-gray-50 p-6">
                 <div class="flex flex-col gap-1">
                   <h1 class="text-[#101518] text-base font-bold leading-tight">Estándar</h1>
@@ -303,23 +294,93 @@
       </div>
     </div>
 
-    <!-- Swiper.js JS -->
-    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
-
-    <!-- Initialize Swiper -->
     <script>
       document.addEventListener('DOMContentLoaded', function () {
         // --- CONFIGURACIÓN PARA GITHUB PAGES ---
-        // Reemplaza con tu nombre de usuario y nombre de repositorio
         const GITHUB_USERNAME = 'quenox'; // Ejemplo: 'octocat'
         const GITHUB_REPO = 'padel-lolol'; // Ejemplo: 'Spoon-Knife'
-        const GALLERY_FOLDER = 'galeria'; // Nombre de la carpeta de imágenes en tu repo
+        const GALLERY_FOLDER = 'galeria';
         // --- FIN CONFIGURACIÓN ---
 
-        const galleryWrapper = document.getElementById('gallery-wrapper');
-        let swiperInstance = null;
+        const galleryWrapper = document.getElementById('tailwind-gallery-wrapper');
+        const prevButton = document.getElementById('gallery-prev');
+        const nextButton = document.getElementById('gallery-next');
+        const dotsContainer = document.getElementById('gallery-dots');
 
-        // Construye la URL de la API de GitHub para obtener el contenido de la carpeta
+        let currentIndex = 0;
+        let totalSlides = 0;
+        let autoPlayInterval = null;
+        const AUTO_PLAY_DELAY = 5000; // 5 segundos
+
+        function showSlide(index) {
+          galleryWrapper.style.transform = `translateX(-${index * 100}%)`;
+          updateDots(index);
+        }
+
+        function updateDots(activeIndex) {
+            const dots = dotsContainer.querySelectorAll('button');
+            dots.forEach((dot, i) => {
+                if (i === activeIndex) {
+                    dot.classList.add('bg-white');
+                    dot.classList.remove('bg-white/50');
+                } else {
+                    dot.classList.add('bg-white/50');
+                    dot.classList.remove('bg-white');
+                }
+            });
+        }
+        
+        function createDots() {
+            dotsContainer.innerHTML = ''; // Limpiar dots existentes
+            for (let i = 0; i < totalSlides; i++) {
+                const dot = document.createElement('button');
+                dot.classList.add('w-3', 'h-3', 'rounded-full', 'bg-white/50', 'hover:bg-white', 'transition-colors', 'duration-200');
+                dot.setAttribute('aria-label', `Ir a imagen ${i + 1}`);
+                dot.addEventListener('click', () => {
+                    currentIndex = i;
+                    showSlide(currentIndex);
+                    resetAutoPlay();
+                });
+                dotsContainer.appendChild(dot);
+            }
+            if (totalSlides > 0) updateDots(currentIndex);
+        }
+
+        function nextSlide() {
+          currentIndex = (currentIndex + 1) % totalSlides;
+          showSlide(currentIndex);
+        }
+
+        function prevSlide() {
+          currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+          showSlide(currentIndex);
+        }
+
+        function startAutoPlay() {
+            if (totalSlides <= 1) return; // No autoplay si hay 0 o 1 imagen
+            stopAutoPlay(); // Limpiar intervalo existente
+            autoPlayInterval = setInterval(nextSlide, AUTO_PLAY_DELAY);
+        }
+
+        function stopAutoPlay() {
+            clearInterval(autoPlayInterval);
+        }
+
+        function resetAutoPlay() {
+            stopAutoPlay();
+            startAutoPlay();
+        }
+
+        prevButton.addEventListener('click', () => {
+          prevSlide();
+          resetAutoPlay();
+        });
+        nextButton.addEventListener('click', () => {
+          nextSlide();
+          resetAutoPlay();
+        });
+
+        // Cargar imágenes desde GitHub
         const apiUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/${GALLERY_FOLDER}`;
 
         fetch(apiUrl)
@@ -330,74 +391,56 @@
             return response.json();
           })
           .then(data => {
-            galleryWrapper.innerHTML = ''; // Limpiar el mensaje de "Cargando..."
-            let imageFound = false;
+            galleryWrapper.innerHTML = ''; // Limpiar mensaje de "Cargando..."
+            let imageFiles = data.filter(item => item.type === 'file' && /\.(jpe?g|png|gif|webp)$/i.test(item.name));
+            totalSlides = imageFiles.length;
 
-            data.forEach(item => {
-              // Filtrar solo archivos de imagen comunes
-              if (item.type === 'file' && /\.(jpe?g|png|gif|webp)$/i.test(item.name)) {
-                imageFound = true;
-                const slide = document.createElement('div');
-                slide.classList.add('swiper-slide');
-                
-                const img = document.createElement('img');
-                // Para GitHub Pages, la URL de la imagen es relativa a la raíz del sitio
-                // Si tu sitio está en `username.github.io/repo-name/`, la URL es `repo-name/galeria/imagen.jpg`
-                // Si usas un dominio personalizado o `username.github.io` directamente, es `galeria/imagen.jpg`
-                // Usaremos item.download_url que es la URL directa al archivo raw, más seguro.
-                // O, si prefieres rutas relativas y sabes que tu repo se sirve desde la raíz (o ajustas el path):
-                // img.src = `${GALLERY_FOLDER}/${item.name}`; // Ruta relativa
-                img.src = item.download_url; // URL absoluta proporcionada por la API
-                img.alt = item.name;
-                
-                slide.appendChild(img);
-                galleryWrapper.appendChild(slide);
-              }
-            });
-
-            if (!imageFound) {
-                galleryWrapper.innerHTML = '<div class="swiper-slide"><p class="text-center p-8 text-gray-600">No se encontraron imágenes en la galería.</p></div>';
+            if (totalSlides === 0) {
+              galleryWrapper.innerHTML = '<div class="w-full h-full flex-none flex items-center justify-center"><p class="text-gray-600">No se encontraron imágenes en la galería.</p></div>';
+              prevButton.style.display = 'none';
+              nextButton.style.display = 'none';
+              dotsContainer.style.display = 'none';
+              return;
             }
+            
+            imageFiles.forEach(item => {
+              const slideDiv = document.createElement('div');
+              slideDiv.className = 'w-full h-full flex-none relative'; // `relative` si quieres añadir captions sobre la imagen
 
-            // Inicializar Swiper después de cargar las imágenes
-            swiperInstance = new Swiper('.mySwiper', {
-              slidesPerView: 1,
-              spaceBetween: 20, // Espacio entre slides
-              loop: imageFound, // Solo hacer loop si hay imágenes
-              autoplay: {
-                delay: 3000, // 3 segundos
-                disableOnInteraction: false,
-              },
-              pagination: {
-                el: '.swiper-pagination',
-                clickable: true,
-              },
-              navigation: {
-                nextEl: '.swiper-button-next',
-                prevEl: '.swiper-button-prev',
-              },
-              // Responsive breakpoints
-              breakpoints: {
-                // when window width is >= 640px (Tailwind sm)
-                640: {
-                  slidesPerView: 2,
-                  spaceBetween: 20
-                },
-                // when window width is >= 1024px (Tailwind lg)
-                1024: {
-                  slidesPerView: 3,
-                  spaceBetween: 30
-                }
-              }
+              const img = document.createElement('img');
+              img.src = item.download_url;
+              img.alt = `Imagen de galería: ${item.name}`;
+              img.className = 'w-full h-full object-cover'; // object-cover para llenar el slide
+              
+              slideDiv.appendChild(img);
+              galleryWrapper.appendChild(slideDiv);
             });
+
+            createDots();
+            showSlide(currentIndex); // Mostrar la primera imagen
+            startAutoPlay(); // Iniciar autoplay
+
+            // Ocultar botones si solo hay una imagen
+            if (totalSlides <= 1) {
+                prevButton.style.display = 'none';
+                nextButton.style.display = 'none';
+                dotsContainer.style.display = 'none';
+            } else {
+                prevButton.style.display = 'block';
+                nextButton.style.display = 'block';
+                dotsContainer.style.display = 'flex';
+            }
           })
           .catch(error => {
             console.error('Error al cargar la galería:', error);
-            galleryWrapper.innerHTML = `<div class="swiper-slide"><p class="text-center p-8 text-red-600">Error al cargar la galería: ${error.message}. Revisa la consola y la configuración.</p></div>`;
+            galleryWrapper.innerHTML = `<div class="w-full h-full flex-none flex items-center justify-center"><p class="text-red-600">Error al cargar la galería: ${error.message}.</p></div>`;
+            prevButton.style.display = 'none';
+            nextButton.style.display = 'none';
+            dotsContainer.style.display = 'none';
           });
 
-          // Para que los enlaces del header funcionen como anclas suaves
-          document.querySelectorAll('header a[href^="#"]').forEach(anchor => {
+        // Para que los enlaces del header funcionen como anclas suaves
+        document.querySelectorAll('header a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const targetId = this.getAttribute('href');
@@ -409,6 +452,11 @@
                 }
             });
         });
+
+        // Pausar autoplay al pasar el mouse sobre la galería
+        const galleryContainer = document.getElementById('tailwind-gallery-container');
+        galleryContainer.addEventListener('mouseenter', stopAutoPlay);
+        galleryContainer.addEventListener('mouseleave', startAutoPlay);
       });
     </script>
   </body>
