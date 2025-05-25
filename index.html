@@ -12,6 +12,37 @@
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64," />
 
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Swiper.js CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
+    <style>
+      /* Estilos adicionales para Swiper si son necesarios, o para asegurar la altura */
+      .swiper-container {
+        width: 100%;
+        height: 400px; /* Ajusta la altura según necesites */
+      }
+      .swiper-slide img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* o 'contain' si prefieres */
+        border-radius: 0.75rem; /* rounded-xl de Tailwind */
+      }
+      /* Para que los botones de navegación de Swiper sean más visibles sobre las imágenes */
+      .swiper-button-next, .swiper-button-prev {
+        color: #ffffff; /* Color blanco */
+        background-color: rgba(0,0,0,0.3); /* Fondo semi-transparente */
+        padding: 10px;
+        border-radius: 50%;
+        width: 44px !important; /* Ajusta si es necesario */
+        height: 44px !important; /* Ajusta si es necesario */
+      }
+      .swiper-button-next::after, .swiper-button-prev::after {
+        font-size: 20px !important; /* Tamaño del icono de flecha */
+      }
+      .swiper-pagination-bullet-active {
+        background-color: #ffffff !important; /* Color del bullet activo */
+      }
+    </style>
   </head>
   <body>
     <div class="relative flex size-full min-h-screen flex-col bg-gray-50 group/design-root overflow-x-hidden" style='font-family: "Plus Jakarta Sans", "Noto Sans", sans-serif;'>
@@ -31,9 +62,10 @@
           <div class="flex flex-1 justify-end gap-8">
             <div class="flex items-center gap-9">
               <a class="text-[#101518] text-sm font-medium leading-normal" href="#">Inicio</a>
-              <a class="text-[#101518] text-sm font-medium leading-normal" href="#">Canchas</a>
-              <a class="text-[#101518] text-sm font-medium leading-normal" href="#">Ubicación</a>
-              <a class="text-[#101518] text-sm font-medium leading-normal" href="#">Contacto</a>
+              <a class="text-[#101518] text-sm font-medium leading-normal" href="#canchas">Canchas</a>
+              <a class="text-[#101518] text-sm font-medium leading-normal" href="#galeria">Galería</a> <!-- Nuevo enlace -->
+              <a class="text-[#101518] text-sm font-medium leading-normal" href="#ubicacion">Ubicación</a>
+              <a class="text-[#101518] text-sm font-medium leading-normal" href="#contacto">Contacto</a>
             </div>
           </div>
         </header>
@@ -42,22 +74,15 @@
             <div class="@container">
               <div class="@[480px]:p-4">
                 <div class="relative flex min-h-[480px] flex-col gap-6 @[480px]:gap-8 @[480px]:rounded-xl items-center justify-center p-4 overflow-hidden">
-                  <!-- El video va primero para que el contenido lo sobreponga -->
                   <video class="absolute inset-0 w-full h-full object-cover z-0"
                     autoplay
                     loop
                     muted
                     playsinline
                     poster="https://via.placeholder.com/1920x1080.png?text=Cargando+video+de+Padel">
-                    <!-- Reemplaza la URL del poster con una imagen real que quieras que se muestre si el video no carga -->
                     <source src="Video_1748030907.mp4" type="video/mp4">
-                    <!-- Opcional: Puedes añadir otros formatos para mayor compatibilidad -->
-                    <!-- <source src="Video_1748030907.webm" type="video/webm"> -->
                     Tu navegador no soporta el tag de video.
                   </video>
-
-                  <!-- El contenido existente (títulos y botón) -->
-                  <!-- Añadimos 'relative' y 'z-10' para asegurar que estén por encima del video -->
                   <div class="relative z-10 flex flex-col gap-2 text-center" bis_skin_checked="1">
                       <h1 class="text-white text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em]">
                           Bienvenido a Padel Courts Lolol
@@ -72,7 +97,7 @@
                 </div>
               </div>
             </div>
-            <h2 class="text-[#101518] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Nuestras Canchas</h2>
+            <h2 id="canchas" class="text-[#101518] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5 scroll-mt-20">Nuestras Canchas</h2>
             <div class="flex overflow-y-auto [-ms-scrollbar-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
               <div class="flex items-stretch p-4 gap-3">
                 <div class="flex h-full flex-1 flex-col gap-4 rounded-lg min-w-60">
@@ -107,13 +132,32 @@
                 </div>
               </div>
             </div>
-            <h2 class="text-[#101518] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Ubicación y Contacto</h2>
+
+            <!-- INICIO SECCIÓN GALERÍA -->
+            <h2 id="galeria" class="text-[#101518] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5 scroll-mt-20">Galería de Fotos</h2>
+            <div class="px-4 py-3">
+              <!-- Swiper -->
+              <div class="swiper-container mySwiper">
+                <div class="swiper-wrapper" id="gallery-wrapper">
+                  <!-- Las imágenes se cargarán aquí por JavaScript -->
+                  <div class="swiper-slide"><p class="text-center p-8">Cargando galería...</p></div>
+                </div>
+                <!-- Add Pagination -->
+                <div class="swiper-pagination"></div>
+                <!-- Add Navigation -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+              </div>
+            </div>
+            <!-- FIN SECCIÓN GALERÍA -->
+
+            <h2 id="ubicacion" class="text-[#101518] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5 scroll-mt-20">Ubicación y Contacto</h2>
             <div class="flex px-4 py-3 justify-center items-center" bis_skin_checked="1">
               <div class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl object-cover" bis_skin_checked="1">
                 <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m8!1m3!1d741.8311769173911!2d-71.67089240510185!3d-34.730380761569286!3m2!1i1024!2i768!4f13.1!4m6!3e6!4m0!4m3!3m2!1d-34.73058025519914!2d-71.6704605694674!5e1!3m2!1ses!2scl!4v1748048268825!5m2!1ses!2scl" width="100%" height="450" style="border:0; display: block; margin: 0 auto;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
               </div>
             </div>
-            <p class="text-[#101518] text-base font-normal leading-normal pb-3 pt-1 px-4">
+            <p id="contacto" class="text-[#101518] text-base font-normal leading-normal pb-3 pt-1 px-4 scroll-mt-20">
               Encuéntranos en Lolol, Chile. Para consultas, llámanos al +56 9 1234 5678 o envíanos un correo a info@padelcourtslolol.com.
             </p>
             <h2 class="text-[#101518] text-[22px] font-bold leading-tight tracking-[-0.015em] px-4 pb-3 pt-5">Precios</h2>
@@ -258,5 +302,114 @@
         </div>
       </div>
     </div>
+
+    <!-- Swiper.js JS -->
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
+    <!-- Initialize Swiper -->
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // --- CONFIGURACIÓN PARA GITHUB PAGES ---
+        // Reemplaza con tu nombre de usuario y nombre de repositorio
+        const GITHUB_USERNAME = 'quenox'; // Ejemplo: 'octocat'
+        const GITHUB_REPO = 'padel-lolol'; // Ejemplo: 'Spoon-Knife'
+        const GALLERY_FOLDER = 'galeria'; // Nombre de la carpeta de imágenes en tu repo
+        // --- FIN CONFIGURACIÓN ---
+
+        const galleryWrapper = document.getElementById('gallery-wrapper');
+        let swiperInstance = null;
+
+        // Construye la URL de la API de GitHub para obtener el contenido de la carpeta
+        const apiUrl = `https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/contents/${GALLERY_FOLDER}`;
+
+        fetch(apiUrl)
+          .then(response => {
+            if (!response.ok) {
+              throw new Error(`Error de red o GitHub API: ${response.status} ${response.statusText}`);
+            }
+            return response.json();
+          })
+          .then(data => {
+            galleryWrapper.innerHTML = ''; // Limpiar el mensaje de "Cargando..."
+            let imageFound = false;
+
+            data.forEach(item => {
+              // Filtrar solo archivos de imagen comunes
+              if (item.type === 'file' && /\.(jpe?g|png|gif|webp)$/i.test(item.name)) {
+                imageFound = true;
+                const slide = document.createElement('div');
+                slide.classList.add('swiper-slide');
+                
+                const img = document.createElement('img');
+                // Para GitHub Pages, la URL de la imagen es relativa a la raíz del sitio
+                // Si tu sitio está en `username.github.io/repo-name/`, la URL es `repo-name/galeria/imagen.jpg`
+                // Si usas un dominio personalizado o `username.github.io` directamente, es `galeria/imagen.jpg`
+                // Usaremos item.download_url que es la URL directa al archivo raw, más seguro.
+                // O, si prefieres rutas relativas y sabes que tu repo se sirve desde la raíz (o ajustas el path):
+                // img.src = `${GALLERY_FOLDER}/${item.name}`; // Ruta relativa
+                img.src = item.download_url; // URL absoluta proporcionada por la API
+                img.alt = item.name;
+                
+                slide.appendChild(img);
+                galleryWrapper.appendChild(slide);
+              }
+            });
+
+            if (!imageFound) {
+                galleryWrapper.innerHTML = '<div class="swiper-slide"><p class="text-center p-8 text-gray-600">No se encontraron imágenes en la galería.</p></div>';
+            }
+
+            // Inicializar Swiper después de cargar las imágenes
+            swiperInstance = new Swiper('.mySwiper', {
+              slidesPerView: 1,
+              spaceBetween: 20, // Espacio entre slides
+              loop: imageFound, // Solo hacer loop si hay imágenes
+              autoplay: {
+                delay: 3000, // 3 segundos
+                disableOnInteraction: false,
+              },
+              pagination: {
+                el: '.swiper-pagination',
+                clickable: true,
+              },
+              navigation: {
+                nextEl: '.swiper-button-next',
+                prevEl: '.swiper-button-prev',
+              },
+              // Responsive breakpoints
+              breakpoints: {
+                // when window width is >= 640px (Tailwind sm)
+                640: {
+                  slidesPerView: 2,
+                  spaceBetween: 20
+                },
+                // when window width is >= 1024px (Tailwind lg)
+                1024: {
+                  slidesPerView: 3,
+                  spaceBetween: 30
+                }
+              }
+            });
+          })
+          .catch(error => {
+            console.error('Error al cargar la galería:', error);
+            galleryWrapper.innerHTML = `<div class="swiper-slide"><p class="text-center p-8 text-red-600">Error al cargar la galería: ${error.message}. Revisa la consola y la configuración.</p></div>`;
+          });
+
+          // Para que los enlaces del header funcionen como anclas suaves
+          document.querySelectorAll('header a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if(targetElement){
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+      });
+    </script>
   </body>
 </html>
